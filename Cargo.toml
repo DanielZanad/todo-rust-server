@@ -8,3 +8,7 @@ dotenv = "0.15.0"
 actix-web = "4"
 log = "0.4.27"
 sea-orm = { version = "1.1.0", features = [ "sqlx-postgres", "runtime-tokio-rustls", "macros" ] }
+<<<<<<< HEAD
+=======
+chrono = "0.4.40"
+>>>>>>> origin/database_migration

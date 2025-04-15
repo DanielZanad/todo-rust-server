@@ -1,7 +1,15 @@
+<<<<<<< HEAD
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 use dotenv::dotenv;
 use infra::database::configuration::get_configuration;
 use sea_orm::Database;
+=======
+use std::ops::Add;
+
+use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
+use dotenv::dotenv;
+use infra::database::sea_orm::configuration::get_configuration;
+>>>>>>> origin/database_migration
 
 mod app;
 mod infra;
