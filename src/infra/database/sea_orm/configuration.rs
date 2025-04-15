@@ -1,4 +1,3 @@
-use log;
 use std::{
     env::{self, VarError},
     time::Duration,
@@ -29,7 +28,6 @@ pub async fn get_configuration() -> Result<DatabaseSettings, VarError> {
                 database_host: host,
                 database_connection: None,
             };
-            println!("{}", database_settings.connection_string());
             let mut opt = ConnectOptions::new(database_settings.connection_string());
             opt.max_connections(100)
                 .min_connections(5)
@@ -58,7 +56,7 @@ pub async fn get_configuration() -> Result<DatabaseSettings, VarError> {
 }
 
 impl DatabaseSettings {
-    pub fn connection_string(&self) -> String {
+    fn connection_string(&self) -> String {
         format!(
             "postgres://{}:{}@{}/{}?currentSchema=public",
             self.username, self.password, self.database_host, self.database_name

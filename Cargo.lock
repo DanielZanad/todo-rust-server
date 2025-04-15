@@ -511,15 +511,10 @@ checksum = "1a7964611d71df112cb1730f2ee67324fcf4d0fc6606acbbe9bfe06df124637c"
 dependencies = [
  "android-tzdata",
  "iana-time-zone",
-<<<<<<< HEAD
- "num-traits",
- "serde",
-=======
  "js-sys",
  "num-traits",
  "serde",
  "wasm-bindgen",
->>>>>>> origin/database_migration
  "windows-link",
 ]
 
@@ -2564,10 +2559,7 @@ name = "todo-server"
 version = "0.1.0"
 dependencies = [
  "actix-web",
-<<<<<<< HEAD
-=======
  "chrono",
->>>>>>> origin/database_migration
  "dotenv",
  "log",
  "sea-orm",

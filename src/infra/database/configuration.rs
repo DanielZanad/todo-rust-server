@@ -1,4 +1,3 @@
-use log;
 use std::{
     env::{self, VarError},
     time::Duration,
