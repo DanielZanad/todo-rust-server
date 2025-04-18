@@ -1,5 +1,7 @@
-use crate::app::entities::task::Task;
+use sea_orm::DatabaseConnection;
+
+use crate::app::entities::task::Model;
 
 pub trait TaskRepository {
-    fn save(task: Task) {}
+    fn save(&self, task: Model, db_conn: DatabaseConnection) {}
 }
