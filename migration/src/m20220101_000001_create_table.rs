@@ -11,11 +11,14 @@ impl MigrationTrait for Migration {
         manager
             .create_table(
                 Table::create()
-                    .table(Post::Table)
+                    .table(Task::Table)
                     .if_not_exists()
-                    .col(pk_auto(Post::Id))
-                    .col(string(Post::Title))
-                    .col(string(Post::Text))
+                    .col(pk_auto(Task::Id))
+                    .col(string(Task::Name))
+                    .col(string(Task::Content))
+                    .col(string(Task::State))
+                    .col(boolean(Task::Done))
+                    .col(date_time(Task::Done))
                     .to_owned(),
             )
             .await
@@ -25,7 +28,7 @@ impl MigrationTrait for Migration {
         // Replace the sample below with your own migration scripts
 
         manager
-            .drop_table(Table::drop().table(Post::Table).to_owned())
+            .drop_table(Table::drop().table(Task::Table).to_owned())
             .await
     }
 }
@@ -36,4 +39,15 @@ enum Post {
     Id,
     Title,
     Text,
+}
+
+#[derive(DeriveIden)]
+enum Task {
+    Table,
+    Id,
+    Name,
+    Content,
+    State,
+    Done,
+    CreatedAt,
 }
