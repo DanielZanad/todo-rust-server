@@ -34,14 +34,6 @@ impl MigrationTrait for Migration {
 }
 
 #[derive(DeriveIden)]
-enum Post {
-    Table,
-    Id,
-    Title,
-    Text,
-}
-
-#[derive(DeriveIden)]
 enum Task {
     Table,
     Id,

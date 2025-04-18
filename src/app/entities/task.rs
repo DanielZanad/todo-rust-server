@@ -1,4 +1,5 @@
 use chrono::{DateTime, Utc};
+use sea_orm::prelude::*;
 
 pub enum TaskState {
     Todo,
@@ -6,20 +7,30 @@ pub enum TaskState {
     Completed,
 }
 
-pub struct Task {
+#[derive(DeriveEntityModel, Clone, Debug, PartialEq)]
+#[sea_orm(table_name = "tasks")]
+pub struct Model {
+    #[sea_orm(primary_key)]
+    id: String,
     name: String,
     content: String,
-    state: TaskState,
+    state: String,
     done: bool,
     created_at: DateTime<Utc>,
 }
 
-impl Task {
-    pub fn new(name: String, content: String) -> Self {
-        Task {
+#[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
+pub enum Relation {}
+
+impl ActiveModelBehavior for ActiveModel {}
+
+impl Model {
+    pub fn new(name: String, content: String, state: String) -> Self {
+        Model {
+            id: uuid::Uuid::new_v4().to_string(),
             name,
             content,
-            state: TaskState::Todo,
+            state,
             done: false,
             created_at: Utc::now(),
         }
@@ -34,7 +45,7 @@ impl Task {
         &self.content
     }
 
-    pub fn state(&self) -> &TaskState {
+    pub fn state(&self) -> &String {
         &self.state
     }
 
@@ -55,7 +66,7 @@ impl Task {
         self.content = content;
     }
 
-    pub fn set_state(&mut self, state: TaskState) {
+    pub fn set_state(&mut self, state: String) {
         self.state = state;
     }
 
