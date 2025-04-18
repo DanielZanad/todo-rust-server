@@ -1,6 +1,6 @@
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 use dotenv::dotenv;
-use infra::database::sea_orm::configuration::get_configuration;
+use infra::{database::sea_orm::configuration::get_configuration, http::task_controller};
 
 mod app;
 mod infra;
@@ -17,11 +17,13 @@ async fn main() -> std::io::Result<()> {
         .await
         .expect("failed to connect to database");
 
+    let conn = database_settings.database_connection.unwrap();
+
     HttpServer::new(move || {
         App::new()
-            .app_data(web::Data::new(
-                database_settings.database_connection.clone(),
-            ))
+            .app_data(web::Data::new(conn.clone()))
+            .service(task_controller::insert_task)
+            .service(task_controller::index)
             .service(hello)
     })
     .bind(("127.0.0.1", 3000))?

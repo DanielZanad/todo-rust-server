@@ -1,12 +1,6 @@
 use chrono::{DateTime, Utc};
 use sea_orm::prelude::*;
 
-pub enum TaskState {
-    Todo,
-    InProgress,
-    Completed,
-}
-
 #[derive(DeriveEntityModel, Clone, Debug, PartialEq)]
 #[sea_orm(table_name = "tasks")]
 pub struct Model {

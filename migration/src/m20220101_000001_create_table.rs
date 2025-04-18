@@ -11,14 +11,14 @@ impl MigrationTrait for Migration {
         manager
             .create_table(
                 Table::create()
-                    .table(Task::Table)
+                    .table(Tasks::Table)
                     .if_not_exists()
-                    .col(pk_auto(Task::Id))
-                    .col(string(Task::Name))
-                    .col(string(Task::Content))
-                    .col(string(Task::State))
-                    .col(boolean(Task::Done))
-                    .col(date_time(Task::Done))
+                    .col(pk_auto(Tasks::Id))
+                    .col(string(Tasks::Name))
+                    .col(string(Tasks::Content))
+                    .col(string(Tasks::State))
+                    .col(boolean(Tasks::Done))
+                    .col(date_time(Tasks::CreatedAt))
                     .to_owned(),
             )
             .await
@@ -28,13 +28,13 @@ impl MigrationTrait for Migration {
         // Replace the sample below with your own migration scripts
 
         manager
-            .drop_table(Table::drop().table(Task::Table).to_owned())
+            .drop_table(Table::drop().table(Tasks::Table).to_owned())
             .await
     }
 }
 
 #[derive(DeriveIden)]
-enum Task {
+enum Tasks {
     Table,
     Id,
     Name,
