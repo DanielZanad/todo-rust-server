@@ -3,7 +3,7 @@ use std::pin::Pin;
 
 use sea_orm::{ActiveModelTrait, DatabaseConnection, IntoActiveModel};
 
-use crate::app::entities::task::{ActiveModel, Model};
+use crate::app::entities::task::Model;
 use crate::app::repositories::task_repository::TaskRepository;
 pub struct SeaOrmRepository;
 
@@ -16,7 +16,7 @@ impl TaskRepository for SeaOrmRepository {
         Box::pin(async move {
             let active_model = task.into_active_model();
             println!("sea orm repository");
-            let result = active_model.save(db_conn).await.unwrap();
+            let result = active_model.insert(db_conn).await.unwrap();
             println!("{:?}", result);
         })
     }

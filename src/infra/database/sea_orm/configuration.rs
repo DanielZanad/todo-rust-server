@@ -28,6 +28,7 @@ pub async fn get_configuration() -> Result<DatabaseSettings, VarError> {
                 database_host: host,
                 database_connection: None,
             };
+
             let mut opt = ConnectOptions::new(database_settings.connection_string());
             opt.max_connections(100)
                 .min_connections(5)
@@ -36,8 +37,7 @@ pub async fn get_configuration() -> Result<DatabaseSettings, VarError> {
                 .idle_timeout(Duration::from_secs(8))
                 .max_lifetime(Duration::from_secs(8))
                 .sqlx_logging(true)
-                .sqlx_logging_level(log::LevelFilter::Info)
-                .set_schema_search_path(db_name);
+                .sqlx_logging_level(log::LevelFilter::Info);
 
             let conn = Database::connect(opt).await.expect("Failed to connect");
 

@@ -13,12 +13,12 @@ impl MigrationTrait for Migration {
                 Table::create()
                     .table(Tasks::Table)
                     .if_not_exists()
-                    .col(pk_auto(Tasks::Id))
+                    .col(string(Tasks::Id))
                     .col(string(Tasks::Name))
                     .col(string(Tasks::Content))
                     .col(string(Tasks::State))
                     .col(boolean(Tasks::Done))
-                    .col(date_time(Tasks::CreatedAt))
+                    .col(timestamp_with_time_zone(Tasks::CreatedAt))
                     .to_owned(),
             )
             .await

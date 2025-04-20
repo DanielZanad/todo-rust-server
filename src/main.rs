@@ -1,6 +1,7 @@
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 use dotenv::dotenv;
 use infra::{database::sea_orm::configuration::get_configuration, http::task_controller};
+use sea_orm::Database;
 
 mod app;
 mod infra;
@@ -18,6 +19,11 @@ async fn main() -> std::io::Result<()> {
         .expect("failed to connect to database");
 
     let conn = database_settings.database_connection.unwrap();
+
+    // let database_url = "postgres://docker:docker@localhost:5432/todo?currentSchema=public";
+    // let conn = Database::connect(database_url)
+    //     .await
+    //     .expect("Failed to connect to database");
 
     HttpServer::new(move || {
         App::new()
