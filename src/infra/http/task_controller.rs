@@ -22,13 +22,6 @@ struct Task {
 
 #[post("/task")]
 pub async fn insert_task(db: web::Data<DatabaseConnection>, task: web::Json<Task>) -> HttpResponse {
-    // let model = Model::new(task.name.clone(), task.content.clone(), task.state.clone());
-    // model
-    //     .into_active_model()
-    //     .insert(db.get_ref())
-    //     .await
-    //     .unwrap();
-
     let task = InsertTaskRequest::new(task.name.clone(), task.content.clone(), task.state.clone());
     let task_repository = Arc::new(SeaOrmRepository);
 
