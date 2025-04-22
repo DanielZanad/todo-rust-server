@@ -10,4 +10,8 @@ pub trait TaskRepository: Send + Sync {
         task: Model,
         db_conn: &'a DatabaseConnection,
     ) -> Pin<Box<dyn Future<Output = ()> + Send + 'a>>;
+    fn list_all_tasks<'a>(
+        &'a self,
+        db_conn: &'a DatabaseConnection,
+    ) -> Pin<Box<dyn Future<Output = Vec<Model>> + Send + 'a>>;
 }

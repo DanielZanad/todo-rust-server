@@ -1,5 +1,5 @@
 use chrono::{DateTime, Utc};
-use sea_orm::prelude::*;
+use sea_orm::{prelude::*, sea_query::Mode, IntoActiveModel};
 
 #[derive(DeriveEntityModel, Clone, Debug, PartialEq)]
 #[sea_orm(table_name = "tasks")]
@@ -29,7 +29,6 @@ impl Model {
             created_at: Utc::now(),
         }
     }
-
     // Getters
     pub fn name(&self) -> &str {
         &self.name
