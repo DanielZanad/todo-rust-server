@@ -1,6 +1,11 @@
+use std::sync::Arc;
+
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 use dotenv::dotenv;
-use infra::{database::sea_orm::configuration::get_configuration, http::task_controller};
+use infra::{
+    database::sea_orm::{configuration::get_configuration, sea_orm_repository::SeaOrmRepository},
+    http::task_controller,
+};
 use sea_orm::Database;
 
 mod app;
@@ -30,6 +35,7 @@ async fn main() -> std::io::Result<()> {
             .app_data(web::Data::new(conn.clone()))
             .service(task_controller::insert_task)
             .service(task_controller::index)
+            .service(task_controller::list_all_tasks)
             .service(hello)
     })
     .bind(("127.0.0.1", 3000))?

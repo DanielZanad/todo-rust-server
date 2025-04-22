@@ -1,7 +1,8 @@
 use chrono::{DateTime, Utc};
 use sea_orm::{prelude::*, sea_query::Mode, IntoActiveModel};
+use serde::Serialize;
 
-#[derive(DeriveEntityModel, Clone, Debug, PartialEq)]
+#[derive(DeriveEntityModel, Clone, Debug, PartialEq, Serialize)]
 #[sea_orm(table_name = "tasks")]
 pub struct Model {
     #[sea_orm(primary_key)]
